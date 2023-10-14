@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
+const placesRoutes = require('./routes/place-routes/places-routes');
 
 require('dotenv').config();
 
-
+app.use('/api/places', placesRoutes)
 
 
 
