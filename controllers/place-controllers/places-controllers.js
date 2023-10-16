@@ -1,4 +1,5 @@
 const handleNotFoundError = require('../errors/not-found');
+const { v4: uuidv4 } = require('uuid');
 
 
 const DUMMY_PLACES = [
@@ -46,5 +47,23 @@ const getPlaceByCreatorId = (req, res) => {
     res.json({creator});
 }
 
+const createPlace = (req,res) => {
+    const {title, description, address, lat, lng, creator} = req.body;
+    const createdPlace = {
+        id: uuidv4(),
+        title,
+        description,
+        address,
+        "location": {
+            lat,
+            lng
+        },
+        creator
+    };
+    DUMMY_PLACES.push(createdPlace);
+    res.status(201).json({place: createdPlace});
+};
+
 exports.getPlaceByPlaceId = getPlaceByPlaceId;
 exports.getPlaceByCreatorId = getPlaceByCreatorId;
+exports.createPlace = createPlace;
